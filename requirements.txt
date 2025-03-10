@@ -1,1 +1,4 @@
 fastapi[all]
+pandas
+numpy
+joblib
