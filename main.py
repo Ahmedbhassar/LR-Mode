@@ -38,18 +38,6 @@ def create_item(item_id: int):
 # POST request for prediction
 @app.post("/predict")
 async def predict(input_features: InputFeatures):
-    try:
-        # Preprocess the input
-        data = preprocessing(input_features)
-
-        # Debugging: Check if input is scaled before prediction
-        print("Raw Input:", data.values)
-        print("Scaled Input Before Prediction:", model_pipeline.named_steps['standardscaler'].transform(data))
-
-        # Make prediction using the full pipeline (StandardScaler + Lasso)
-        y_pred = model_pipeline.predict(data)
-
-        return {"pred": y_pred.tolist()[0]}
-    except Exception as e:
-        print("❌ ERROR:", str(e))  # Print error in the terminal for debugging
-        raise HTTPException(status_code=500, detail=str(e))
+    data = pd.DataFrame([[input_features.highest_value]], columns=['highest_value'])
+    y_pred = model_pipeline.predict(data)
+    return {"pred": y_pred.tolist()[0]}
