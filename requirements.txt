@@ -1,4 +1,6 @@
-fastapi[all]
+fastapi(all)
+uvicorn
 pandas
 numpy
+scikit-learn
 joblib
